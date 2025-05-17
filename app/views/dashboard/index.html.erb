@@ -1,0 +1,85 @@
+<div class="container-fluid py-4">
+  <h1 class="mb-4">Tableau de Bord des Ventes</h1>
+
+  <div class="row">
+    <!-- KPI Cards -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                Chiffre d'Affaires (Mois)</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800" id="monthly-revenue">
+                <%= number_to_currency(@monthly_revenue || 0) %>
+              </div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                Ventes (Mois)</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800" id="monthly-sales">
+                <%= @monthly_sales || 0 %>
+              </div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <!-- Graphiques -->
+    <div class="col-xl-8 col-lg-7">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Évolution des Ventes</h6>
+        </div>
+        <div class="card-body">
+          <%= line_chart @sales_data || {}, 
+              colors: ["#4e73df"],
+              library: {
+                plugins: {
+                  legend: {
+                    display: false
+                  }
+                }
+              } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-5">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Répartition des Ventes</h6>
+        </div>
+        <div class="card-body">
+          <%= pie_chart @sales_distribution || {}, 
+              colors: ["#4e73df", "#1cc88a", "#36b9cc", "#f6c23e"],
+              library: {
+                plugins: {
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
